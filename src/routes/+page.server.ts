@@ -1,22 +1,45 @@
 import { error } from '@sveltejs/kit';
-import { S3Client, ListObjectsV2Command } from '@aws-sdk/client-s3';
-import { AWS_SECRET_ACCESS_KEY, AWS_ACCESS_KEY_ID } from '$env/static/private';
+import { getFilename, listObjects } from '$lib/aws/s3';
+import { getImageUrl } from '$lib/aws/image-handler';
+
+interface Photo {
+  thumbUrl: string;
+  fullsizeUrl: string;
+  filename: string;
+}
 
 export async function load() {
-  const client = new S3Client({
-    region: 'us-east-1',
-    credentials: {
-      accessKeyId: AWS_ACCESS_KEY_ID,
-      secretAccessKey: AWS_SECRET_ACCESS_KEY
-    }
-  });
-  const command = new ListObjectsV2Command({
-    Bucket: 'arn:aws:s3:us-east-1:025044823111:accesspoint/mtp'
-  });
   try {
-    const results = await client.send(command);
-    console.log(results);
-    return results;
+    const results = await listObjects();
+
+    const photos = results?.Contents?.reduce<Photo[]>((acc, curr) => {
+      // Split the filename from the prefix because one
+      // of these entries is the containing folder only
+      // which we want to ignore
+      const filename = getFilename(curr);
+      if (filename) {
+        const thumbUrl = getImageUrl(filename, {
+          resize: {
+            width: 250,
+            height: 250,
+            fit: 'cover',
+          },
+        });
+
+        const fullsizeUrl = getImageUrl(filename, {
+          resize: {
+            width: 1200,
+            height: 1200,
+            fit: 'contain',
+          },
+        });
+
+        return [...acc, { fullsizeUrl, thumbUrl, filename }];
+      }
+      return acc;
+    }, []);
+
+    return { photos };
   } catch (err) {
     console.error(err);
 
