@@ -11,6 +11,7 @@
   }
   :global(body) {
     background-color: var(--teal);
+    color: var(--white);
   }
   main {
     min-height: 100vh;
