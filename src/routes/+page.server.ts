@@ -30,7 +30,7 @@ export async function load() {
           resize: {
             width: 1200,
             height: 1200,
-            fit: 'contain',
+            fit: 'inside',
           },
         });
 

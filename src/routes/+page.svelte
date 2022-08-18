@@ -4,30 +4,10 @@
   import type { PageServerData } from './$types';
 
   export let data: PageServerData;
-  const photos = data?.photos ? [
-    ...data.photos,
-    ...data.photos,
-    ...data.photos,
-    ...data.photos,
-    ...data.photos,
-    ...data.photos,
-    ...data.photos,
-    ...data.photos,
-    ...data.photos,
-    ...data.photos,
-    ...data.photos,
-    ...data.photos,
-    ...data.photos,
-    ...data.photos,
-    ...data.photos,
-    ...data.photos,
-    ...data.photos,
-    ...data.photos,
-  ] : []
+  const photos = data?.photos
 
   let selectedIdx: number;
   $: selectedImage = photos?.[selectedIdx];
-  $: console.log(selectedImage)
 </script>
 
 <svelte:head>
@@ -36,6 +16,7 @@
 </svelte:head>
 
 <div class="page">
+
   <div class="gallery" data-test="gallery">
     {#if !photos || !photos.length}
       <h5>I thought I had more photos than this...</h5>
@@ -57,8 +38,9 @@
           radial={true}
           url={selectedImage.fullsizeUrl}
           close={() => (selectedIdx = -1)}
-          next={() => (selectedIdx = selectedIdx === photos.length - 1 ? 0 : selectedIdx + 1)}
-          previous={() => (selectedIdx = selectedIdx === 0 ? photos.length - 1 : selectedIdx - 1)} />
+          next={() => (selectedIdx = selectedIdx === photos?.length ?? 0 - 1 ? 0 : selectedIdx + 1)}
+          previous={() => (selectedIdx = selectedIdx === 0 ? photos?.length ?? 0 - 1 : selectedIdx - 1)}
+        />
       {/key}
     {/if}
   </div>
@@ -80,6 +62,7 @@
   @media (min-width: 600px) {
     .gallery {
       grid-template-columns: repeat(auto-fit, minmax(250px, max-content));
+      grid-gap: 24px;
     }
   }
 </style>

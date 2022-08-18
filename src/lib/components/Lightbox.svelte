@@ -118,6 +118,7 @@
       max-height: 100%;
       width: auto;
       height: auto;
+      border: 8px solid var(--border-color);
       ${click ? 'cursor: pointer;' : ''} 
     `}
     afterLoaded={onImageLoad}
@@ -126,13 +127,13 @@
 </div>
 <div on:click={handleClose} class="overlay bottom">
   {#if click}
-    <span in:fade={{ delay: 300, duration: 1000 }} on:click={handleClose} class:controls>
+    <span on:click={handleClose} class:controls>
       <div on:click={arrowClick(previous)} class="icon control">
-        {'<'}
+        <ion-icon name="caret-back-outline" />
       </div>
-      <div on:click class="control details">Click For Details</div>
+      <div class="control details" />
       <div on:click={arrowClick(next)} class="icon control">
-        {'>'}
+        <ion-icon name="caret-forward-outline" />
       </div>
     </span>
   {/if}
@@ -178,12 +179,17 @@
     user-select: none;
   }
   .icon {
+    font-size: 16px;
     height: 34px;
     width: 34px;
+    display: flex;
+    align-items: center;
   }
   .details {
     padding: 3px 8px;
-    line-height: 24px;
+    line-height: 28px;
     white-space: nowrap;
+    text-align: center;
+    width: 150px;
   }
 </style>

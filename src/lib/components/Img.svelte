@@ -1,5 +1,6 @@
 <script lang="ts">
-  export let src: string;
+  export let src: string 
+  export let style: string = ''
   export let afterLoaded: (image: HTMLElement) => void = () => {};
 
   let image: HTMLImageElement;
@@ -18,7 +19,7 @@
   }
 </script>
 
-<img {src} bind:this={image} use:setUp on:click class:loaded />
+<img {src} {style} bind:this={image} use:setUp on:click class:loaded />
 
 <style>
   img {

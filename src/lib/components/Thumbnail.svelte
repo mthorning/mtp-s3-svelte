@@ -20,7 +20,7 @@
     width: 140px;
     height: 140px;
     overflow: hidden;
-    border: 1px solid var(--border-color);
+    border: 2px solid var(--border-color);
     user-select: none;
   }
   @media (min-width: 600px) {

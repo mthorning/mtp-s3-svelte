@@ -5,13 +5,15 @@
 <style>
   :root {
     --white: #fff;
-    --teal: #101b1d;
+    --black: #232323;
 
     --border-color: var(--white);
+    --color: var(--white);
+    --background-color: var(--black);
   }
   :global(body) {
-    background-color: var(--teal);
-    color: var(--white);
+    background-color: var(--background-color);
+    color: var(--color);
   }
   main {
     min-height: 100vh;
