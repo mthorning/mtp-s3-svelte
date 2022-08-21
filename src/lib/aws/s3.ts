@@ -1,20 +1,21 @@
 import { S3Client, ListObjectsV2Command } from '@aws-sdk/client-s3';
 import type { _Object } from '@aws-sdk/client-s3';
+import {fromCognitoIdentityPool} from "@aws-sdk/credential-providers";
 import type { ListObjectsV2CommandOutput } from '@aws-sdk/client-s3';
-import { s3BucketName, s3BucketPrefix, accessKeyId, secretAccessKey } from './constants';
+import { s3BucketName, s3BucketPrefix, identityPoolId, region } from './constants';
 
 let client: S3Client;
 
 function getS3Client(): S3Client {
   if (!!client) return client;
 
-  return new S3Client({
-    region: 'us-east-1',
-    credentials: {
-      accessKeyId,
-      secretAccessKey,
-    },
-  });
+return new S3Client({
+  region,
+  credentials: fromCognitoIdentityPool({
+    clientConfig: { region }, // Configure the underlying CognitoIdentityClient.
+    identityPoolId,
+  })
+});
 }
 
 export function listObjects(): Promise<ListObjectsV2CommandOutput> {
