@@ -5,13 +5,14 @@
   let idToken: string;
 
   const startsWith = '#id_token=';
+  const adminPath = '/admin'
 
   if (browser) {
     const hash = window.location.hash;
     if (hash.startsWith(startsWith)) {
       idToken = hash.split('&')[0].replace(startsWith, '');
-      document.cookie = `idToken=${idToken}`;
-      window.location.replace('/admin');
+      document.cookie = `idToken=${idToken}; Max-Age=${8 * 60 * 60}; path=${adminPath}`;
+      window.location.replace(adminPath);
     }
   }
 </script>

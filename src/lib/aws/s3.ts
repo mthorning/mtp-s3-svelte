@@ -1,4 +1,4 @@
-import { S3Client, ListObjectsV2Command } from '@aws-sdk/client-s3';
+import { S3Client, ListObjectsV2Command, PutObjectCommand } from '@aws-sdk/client-s3';
 import type { _Object } from '@aws-sdk/client-s3';
 import { fromCognitoIdentityPool } from '@aws-sdk/credential-providers';
 import type { ListObjectsV2CommandOutput } from '@aws-sdk/client-s3';
@@ -30,10 +30,21 @@ export function listObjects(token?: string): Promise<ListObjectsV2CommandOutput>
   const command = new ListObjectsV2Command({
     Bucket: s3BucketName,
     Prefix: s3BucketPrefix,
+    Delimiter: '/',
   });
   return client.send(command);
 }
 
 export function getFilename(obj: _Object): string | undefined {
   return obj?.Key?.replace(s3BucketPrefix, '');
+}
+
+export function uploadObject(token: string, file: FileList[number], name: string) {
+  const client = getS3Client(token);
+  const command = new PutObjectCommand({
+    Bucket: s3BucketName,
+    Key: `${s3BucketPrefix}${name}`,
+    Body: file,
+  });
+  return client.send(command);
 }
