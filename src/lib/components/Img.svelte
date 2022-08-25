@@ -3,10 +3,9 @@
   export let style: string = ''
   export let afterLoaded: (image: HTMLElement) => void = () => {};
 
-  let image: HTMLImageElement;
   let loaded = false;
 
-  function setUp(image: HTMLImageElement) {
+  function imageLoad(image: HTMLImageElement) {
     if (image.complete) {
       loaded = true;
       afterLoaded(image);
@@ -19,7 +18,7 @@
   }
 </script>
 
-<img {src} {style} bind:this={image} use:setUp on:click class:loaded />
+<img {src} {style} use:imageLoad on:click class:loaded />
 
 <style>
   img {

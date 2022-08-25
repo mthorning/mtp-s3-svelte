@@ -6,10 +6,13 @@
   :root {
     --white: #fff;
     --black: #232323;
+    --red: #f36363;
 
     --border-color: var(--white);
     --color: var(--white);
     --background-color: var(--black);
+
+    --danger: var(--red);
   }
   :global(body) {
     background-color: var(--background-color);

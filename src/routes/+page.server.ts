@@ -10,9 +10,9 @@ interface Photo {
 
 export async function load() {
   try {
-    const results = await listObjects();
+    const objects = await listObjects();
 
-    const photos = results?.Contents?.reduce<Photo[]>((acc, curr) => {
+    const photos = objects?.Contents?.reduce<Photo[]>((acc, curr) => {
       // Split the filename from the prefix because one
       // of these entries is the containing folder only
       // which we want to ignore
