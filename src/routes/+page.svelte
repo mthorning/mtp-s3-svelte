@@ -49,7 +49,6 @@
 <style>
   .page {
     margin: 0 auto;
-    padding: 32px;
     background: var(--primary-bg-color);
   }
   .gallery {
