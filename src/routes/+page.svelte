@@ -38,8 +38,8 @@
           radial={true}
           url={selectedImage.fullsizeUrl}
           close={() => (selectedIdx = -1)}
-          next={() => (selectedIdx = selectedIdx === photos?.length ?? 0 - 1 ? 0 : selectedIdx + 1)}
-          previous={() => (selectedIdx = selectedIdx === 0 ? photos?.length ?? 0 - 1 : selectedIdx - 1)}
+          next={() => (selectedIdx = selectedIdx === (photos?.length ?? 0) - 1 ? 0 : selectedIdx + 1)}
+          previous={() => (selectedIdx = selectedIdx === 0 ? (photos?.length ?? 0) - 1 : selectedIdx - 1)}
         />
       {/key}
     {/if}

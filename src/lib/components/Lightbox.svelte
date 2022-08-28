@@ -118,7 +118,7 @@
       max-height: 100%;
       width: auto;
       height: auto;
-      border: 8px solid var(--border-color);
+      border: 4px solid var(--border-color);
       box-sizing: border-box;
       ${click ? 'cursor: pointer;' : ''} 
     `}
