@@ -12,12 +12,14 @@
 		"format": "prettier --write --plugin-search-dir=. ."
 	},
 	"devDependencies": {
+		"@rollup/plugin-inject": "^4.0.4",
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/adapter-netlify": "^1.0.0-next.71",
 		"@sveltejs/adapter-vercel": "^1.0.0-next.66",
 		"@sveltejs/kit": "^1.0.0-next.413",
 		"@typescript-eslint/eslint-plugin": "^5.27.0",
 		"@typescript-eslint/parser": "^5.27.0",
+		"buffer": "^6.0.3",
 		"eslint": "^8.16.0",
 		"eslint-config-prettier": "^8.3.0",
 		"eslint-plugin-svelte3": "^4.0.0",
@@ -33,6 +35,7 @@
 	"type": "module",
 	"dependencies": {
 		"@aws-sdk/client-s3": "^3.150.0",
-		"@aws-sdk/credential-providers": "^3.154.0"
+		"@aws-sdk/credential-providers": "^3.154.0",
+		"@rollup/plugin-node-resolve": "^13.3.0"
 	}
 }

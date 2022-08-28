@@ -25,7 +25,7 @@
     const currentScroll = main ? stopAppScroll(main) : null;
     history.pushState({ id: 'modal' }, 'modal');
     return () => {
-      if (main && currentScroll) restoreAppScroll(main, currentScroll);
+      if (main && currentScroll !== null) restoreAppScroll(main, currentScroll);
     };
   });
 
@@ -119,6 +119,7 @@
       width: auto;
       height: auto;
       border: 8px solid var(--border-color);
+      box-sizing: border-box;
       ${click ? 'cursor: pointer;' : ''} 
     `}
     afterLoaded={onImageLoad}
