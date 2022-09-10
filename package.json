@@ -33,6 +33,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@aws-sdk/client-cloudfront": "^3.168.0",
 		"@aws-sdk/client-s3": "^3.150.0",
 		"@aws-sdk/credential-providers": "^3.154.0",
 		"@rollup/plugin-node-resolve": "^13.3.0",

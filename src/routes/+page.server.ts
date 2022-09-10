@@ -1,6 +1,7 @@
 import { error } from '@sveltejs/kit';
 import { getFilename, listObjects } from '$lib/aws/s3';
 import { getImageUrl } from '$lib/aws/image-handler';
+import resizeObjects from '$lib/imageUrlResizeObjects';
 
 interface Photo {
   thumbUrl: string;
@@ -18,21 +19,9 @@ export async function load() {
       // which we want to ignore
       const filename = getFilename(curr);
       if (filename) {
-        const thumbUrl = getImageUrl(filename, {
-          resize: {
-            width: 250,
-            height: 250,
-            fit: 'cover',
-          },
-        });
+        const thumbUrl = getImageUrl(filename, resizeObjects.thumbnail);
 
-        const fullsizeUrl = getImageUrl(filename, {
-          resize: {
-            width: 1200,
-            height: 1200,
-            fit: 'inside',
-          },
-        });
+        const fullsizeUrl = getImageUrl(filename, resizeObjects.fullsize);
 
         return [...acc, { fullsizeUrl, thumbUrl, filename }];
       }

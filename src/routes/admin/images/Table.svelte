@@ -1,5 +1,6 @@
 <script lang="ts">
   import { deleteObject } from '$lib/aws/s3';
+  import { invalidateCache } from '$lib/aws/cloudfront';
   import type { PageServerData } from './$types';
 
   export let photos: PageServerData['photos'];
@@ -26,10 +27,17 @@
       }
     }
   }
+
   function humanSize(size: number, unitIdx: number = 0): string {
     const units = ['B', 'KB', 'MB'];
     if (size < 1024) return `${size.toFixed(1)} ${units[unitIdx]}`;
     return humanSize(size / 1024, unitIdx + 1);
+  }
+
+  function handleInvalidate(paths: string[]) {
+    if (idToken) {
+      invalidateCache(idToken, paths);
+    }
   }
 </script>
 
@@ -40,6 +48,7 @@
     <th>Size</th>
     <th>Last modified</th>
     <th />
+    <th />
   </thead>
   <tbody>
     {#each photos ?? [] as photo}
@@ -49,6 +58,7 @@
         <td>{photo.filename.replace('photos/', '')}</td>
         <td>{humanSize(photo.size || 0)}</td>
         <td>{photo.lastModified}</td>
+        <td><button on:click={() => handleInvalidate(photo.invalidationPaths)}>Invalidate</button></td>
         <td>
           {#if forDeletion == photo.filename}
             <button on:click={() => (forDeletion = undefined)}>Cancel</button>

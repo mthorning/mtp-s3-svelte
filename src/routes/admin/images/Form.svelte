@@ -31,7 +31,7 @@
 
   function handleSubmit() {
     if (idToken) {
-      uploadObject(idToken, file, newFilename.replace(' ', '-'))
+      uploadObject(idToken, file, `${newFilename.replace(' ', '-')}.jpg`)
         .then(() => window.location.reload())
         .catch((e) => console.error(e));
     }

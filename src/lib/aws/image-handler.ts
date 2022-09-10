@@ -1,6 +1,6 @@
 import { imageHandlerUrl, s3BucketPrefix, s3BucketName } from './constants';
 
-interface Edits {
+export interface Edits {
   resize?: {
     width?: number;
     height?: number;
