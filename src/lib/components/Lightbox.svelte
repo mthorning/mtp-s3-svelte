@@ -185,6 +185,7 @@
     width: 34px;
     display: flex;
     align-items: center;
+    justify-content: center;
   }
   .details {
     padding: 3px 8px;
