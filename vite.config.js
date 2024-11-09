@@ -2,7 +2,6 @@ import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
 import faroUploader from '@grafana/faro-rollup-plugin';
 
-console.log('Test', process.env.TEST_ENV);
 export default defineConfig({
   plugins: [
     sveltekit(),
