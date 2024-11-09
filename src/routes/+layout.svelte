@@ -1,3 +1,25 @@
+
+<script>
+  import { getWebInstrumentations, initializeFaro } from '@grafana/faro-web-sdk';
+  import { TracingInstrumentation } from '@grafana/faro-web-tracing';
+  import { onMount } from 'svelte';
+
+  onMount(() => {
+    initializeFaro({
+      url: 'https://faro-collector-prod-eu-west-2.grafana.net/collect/ae2372c8746e6f47921c8a4493cfd608',
+      app: {
+        name: 'mattthorningphotography.com',
+        version: '1.0.0',
+        environment: 'production'
+      },
+      instrumentations: [
+        ...getWebInstrumentations(),
+        new TracingInstrumentation(),
+      ],
+    });
+  });
+</script>
+
 <main>
   <slot />
 </main>
